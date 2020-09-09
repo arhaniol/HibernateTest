@@ -1,23 +1,33 @@
 package org.example;
 
-public class Student {
-    private int StudentID;
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+public class Student implements Serializable {
+    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    private int studentID;
+
+    @Column(name="name")
     private String name;
 
     public Student() {
+        super();
     }
 
     public Student(int studentID, String name) {
-        StudentID = studentID;
+        this.studentID = studentID;
         this.name = name;
     }
 
     public int getStudentID() {
-        return StudentID;
+        return studentID;
     }
 
     public void setStudentID(int studentID) {
-        StudentID = studentID;
+        this.studentID = studentID;
     }
 
     public String getName() {
