@@ -1,7 +1,10 @@
 package org.example;
 
+import java.util.List;
+
 public interface StudentDAO {
     void saveStudent(int id, String name);
-    Student getStudent();
+    Student getStudent(int id);
+    List getAllStudents();
     void updateStudent(int id, String name);
 }
