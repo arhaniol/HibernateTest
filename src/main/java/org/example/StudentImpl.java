@@ -6,16 +6,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class StudentImpl implements StudentDAO {
     private Session session;
 
     public StudentImpl() {
-//        SessionFactory sessionFactory = HibernateUtil.getSessionManagerFactory();
         try {
-            SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        SessionFactory sessionFactory = HibernateUtil.getSessionManagerFactory();
+//            SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
             session = sessionFactory.openSession();
         }catch (Exception ex){
-            System.err.println("Session factory object faild of creation "+ex);
+            System.err.println("Session factory object failed of creation "+ex);
         }
     }
 
@@ -47,7 +49,12 @@ public class StudentImpl implements StudentDAO {
     }
 
     @Override
-    public Student getStudent() {
+    public List getAllStudents() {
+        return null;
+    }
+
+    @Override
+    public Student getStudent(int id) {
 
         return null;
     }
