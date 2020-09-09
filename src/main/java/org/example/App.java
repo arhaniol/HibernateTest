@@ -9,7 +9,7 @@ public class App
     public static void main( String[] args )
     {
         StudentImpl student=new StudentImpl();
-        student.saveStudent(4,"Ada");
+        student.saveStudent(7,"Pola");
         student.close();
         System.out.println( "Hello World!" );
     }
