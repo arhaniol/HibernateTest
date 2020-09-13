@@ -1,9 +1,10 @@
-package org.example;
+package org.example.hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name="student")
 public class Student implements Serializable {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
