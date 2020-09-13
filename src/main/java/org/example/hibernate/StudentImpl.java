@@ -1,10 +1,9 @@
-package org.example;
+package org.example.hibernate;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
@@ -13,11 +12,10 @@ public class StudentImpl implements StudentDAO {
 
     public StudentImpl() {
         try {
-        SessionFactory sessionFactory = HibernateUtil.getSessionManagerFactory();
-//            SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+            SessionFactory sessionFactory = HibernateUtil.getSessionManagerFactory();
             session = sessionFactory.openSession();
-        }catch (Exception ex){
-            System.err.println("Session factory object failed of creation "+ex);
+        } catch (Exception ex) {
+            System.err.println("Session factory object failed of creation " + ex);
         }
     }
 
