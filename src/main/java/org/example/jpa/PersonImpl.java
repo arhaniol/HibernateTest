@@ -2,14 +2,16 @@ package org.example.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class PersonImpl implements PersonDAO {
-    private final EntityManager em;
+    private final EntityManager EM;
 
     public PersonImpl() {
         try {
-            em = EntityManagerUtil.getEntityManagerFactory().createEntityManager();
+            EM = EntityManagerUtil.getEntityManagerFactory().createEntityManager();
         } catch (Exception ex) {
             System.err.println("EntityManager object failed to create " + ex);
             throw new ExceptionInInitializerError(ex);
@@ -17,8 +19,8 @@ public class PersonImpl implements PersonDAO {
     }
 
     public void close() {
-        if (em != null) {
-            em.close();
+        if (EM != null) {
+            EM.close();
         }
     }
 
@@ -27,9 +29,9 @@ public class PersonImpl implements PersonDAO {
         EntityTransaction transaction = null;
         Person one = new Person(id, name);
         try {
-            transaction = em.getTransaction();
+            transaction = EM.getTransaction();
             transaction.begin();
-            em.persist(one);
+            EM.persist(one);
             transaction.commit();
         } catch (Exception ex) {
             System.err.println("Commit failed " + ex);
@@ -47,9 +49,9 @@ public class PersonImpl implements PersonDAO {
         one.setName(name);
 
         try {
-            transaction = em.getTransaction();
+            transaction = EM.getTransaction();
             transaction.begin();
-            em.persist(one);
+            EM.persist(one);
             transaction.commit();
         } catch (Exception ex) {
             System.err.println("Commit failed " + ex);
@@ -64,24 +66,30 @@ public class PersonImpl implements PersonDAO {
     @Override
     public String getName(int id) {
         String name;
-        Person person = em.find(Person.class, id);
+        Person person = EM.find(Person.class, id);
         name = person.getName();
         return name;
     }
 
     @Override
     public List getAllPerson() {
-//        em.getCriteriaBuilder().cri
-//        List<Person>personList
-        return null;
+        TypedQuery<Person> tq= EM.createQuery("FROM Person",Person.class);
+        List<Person>personList=null;
+
+        try{
+            personList=tq.getResultList();
+        }catch (NoResultException ex){
+            ex.printStackTrace();
+        }
+        return personList;
     }
 
     @Override
     public void update(int id, String name) {
-        EntityTransaction et = em.getTransaction();
+        EntityTransaction et = EM.getTransaction();
         try {
             et.begin();
-            Person person = em.find(Person.class, id);
+            Person person = EM.find(Person.class, id);
             person.setName(name);
             et.commit();
         } catch (Exception ex) {

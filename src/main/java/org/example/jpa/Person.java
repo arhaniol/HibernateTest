@@ -1,6 +1,7 @@
 package org.example.jpa;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -9,6 +10,16 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
+    @OneToMany
+    private List<Tranzakcja> tranzakcje;
+
+    public List<Tranzakcja> getTranzakcje() {
+        return tranzakcje;
+    }
+
+    public void setTranzakcje(List<Tranzakcja> tranzakcje) {
+        this.tranzakcje = tranzakcje;
+    }
 
     public Person() {
     }

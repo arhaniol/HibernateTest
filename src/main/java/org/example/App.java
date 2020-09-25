@@ -1,6 +1,10 @@
 package org.example;
 
+import org.example.jpa.Person;
 import org.example.jpa.PersonImpl;
+import org.example.jpa.TranzakcjaImpl;
+
+import java.util.List;
 
 
 public class App {
@@ -24,6 +28,11 @@ public class App {
         }
         System.out.println("Zmieniam imie " + czlowiek.getName(2));
         czlowiek.update(2, "Jurek");
+
+        TranzakcjaImpl tranzakcja = new TranzakcjaImpl();
+        List<Person> ludzie = czlowiek.getAllPerson();
+        tranzakcja.create(ludzie.get(0), ludzie.get(1), 10.1);
+
         czlowiek.close();
     }
 }
