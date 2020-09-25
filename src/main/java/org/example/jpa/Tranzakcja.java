@@ -45,4 +45,14 @@ public class Tranzakcja {
     public void setTo(Person to) {
         this.to = to;
     }
+
+    @Override
+    public String toString() {
+        return "Tranzakcja{" +
+                "id=" + id +
+                ", value=" + value +
+                ", from=" + from +
+                ", to=" + to +
+                '}';
+    }
 }
